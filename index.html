@@ -1,1 +1,241 @@
-<!doctype html><html><head><meta charset="utf-8"><title>TradeLab</title></head><body>TradeLab upload pending.</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TradeLab — Backtest Journal</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2b;--panel2:#172238;--line:#26334b;--text:#edf3ff;--muted:#8fa1bd;--green:#31d0a0;--red:#ff6b7a;--amber:#f7bd4a;--blue:#7aa7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#13203a 0,#0b1020 55%);font:14px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:10px 13px;background:#1b2942;color:var(--text);font-weight:650}button:hover{filter:brightness(1.13)}button.primary{background:var(--green);color:#071b17;border-color:transparent}button.danger{color:var(--red)}button.ghost{background:transparent}.wrap{max-width:1400px;margin:auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{height:42px;width:42px;border-radius:13px;background:linear-gradient(135deg,var(--green),#6ca8ff);display:grid;place-items:center;color:#071b17;font-size:21px;font-weight:900}.brand h1{font-size:22px;margin:0;letter-spacing:-.5px}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.head-actions{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;gap:7px;border-bottom:1px solid var(--line);margin-bottom:20px;overflow:auto}.tab{white-space:nowrap;background:transparent;border:0;border-radius:9px 9px 0 0;color:var(--muted);padding:12px 16px}.tab.active{color:var(--green);border-bottom:2px solid var(--green);background:#142238}
+.page{display:none}.page.active{display:block}.grid{display:grid;gap:14px}.kpis{grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:16px}.card{background:linear-gradient(160deg,rgba(23,34,56,.96),rgba(16,25,42,.98));border:1px solid var(--line);border-radius:16px;padding:17px;min-width:0}.kpi-label{color:var(--muted);font-size:12px}.kpi-value{font-size:25px;font-weight:800;letter-spacing:-.6px;margin-top:7px;overflow-wrap:anywhere}.kpi-sub{font-size:11px;color:var(--muted);margin-top:4px}.positive{color:var(--green)!important}.negative{color:var(--red)!important}.amber{color:var(--amber)!important}.two-col{grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr)}.card h2{font-size:15px;margin:0 0 14px}.card h3{font-size:13px;margin:0 0 10px;color:#dce7fa}.muted{color:var(--muted)}.small{font-size:12px}.field-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field label{font-size:12px;color:var(--muted)}input,select,textarea{width:100%;background:#0c1526;border:1px solid #2b3a54;color:var(--text);border-radius:9px;padding:10px 11px;min-width:0;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue)}input::placeholder,textarea::placeholder{color:#64748b}.form-section{margin-bottom:16px}.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}.notice{padding:10px 12px;border:1px solid #30405b;background:#101b2d;border-radius:10px;color:var(--muted);font-size:12px;margin-bottom:14px}.toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.filters{display:flex;gap:8px;flex-wrap:wrap}.filters input,.filters select{width:auto;min-width:135px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;min-width:950px;background:#10192a}th,td{padding:11px 12px;text-align:left;border-bottom:1px solid #243149;white-space:nowrap;font-size:12px}th{background:#17243a;color:#9eb0cb;font-weight:700;position:sticky;top:0}tr:last-child td{border-bottom:0}tbody tr:hover{background:#17243a}.pill{display:inline-flex;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:750;background:#23324b}.pill.win{color:var(--green);background:#12342f}.pill.loss{color:var(--red);background:#3a202c}.pill.be{color:var(--amber);background:#3a3020}.bar-list{display:grid;gap:13px}.bar-row{display:grid;grid-template-columns:75px 1fr 70px;gap:10px;align-items:center;font-size:12px}.bar-track{height:9px;background:#26344b;border-radius:10px;overflow:hidden}.bar-fill{height:100%;background:linear-gradient(90deg,#31d0a0,#7aa7ff);border-radius:10px}.bar-fill.neg{background:linear-gradient(90deg,#ff6b7a,#f7bd4a)}.empty{padding:32px 15px;text-align:center;color:var(--muted)}.empty strong{display:block;color:var(--text);margin-bottom:5px}.chart{width:100%;height:250px;display:block}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.settings-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.inline{display:flex;align-items:center;gap:8px}.inline input{max-width:160px}.foot{color:var(--muted);font-size:11px;text-align:center;padding:24px 0 8px}.toast{position:fixed;right:20px;bottom:20px;padding:12px 16px;background:#18382f;border:1px solid #286b59;border-radius:12px;color:#bff7e8;box-shadow:0 12px 30px #0006;display:none;z-index:10}.modal-backdrop{position:fixed;inset:0;background:#020617cc;display:none;place-items:center;padding:16px;z-index:9}.modal{max-width:480px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}.modal h2{margin-top:0}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.wrap{padding:14px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two-col,.settings-grid{grid-template-columns:1fr}.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi-value{font-size:22px}.brand h1{font-size:19px}.head-actions button{padding:9px}.card{padding:14px}}
+@media(max-width:420px){.field-grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><div class="logo">↗</div><div><h1>TradeLab <span style="color:var(--green)">Backtest</span></h1><p>Trading journal · RR analysis · performance reports</p></div></div>
+  <div class="head-actions">
+    <button class="ghost" id="backupBtn">Backup data</button>
+    <button class="ghost" id="importBtn">Import backup</button>
+    <button class="primary" id="exportBtn">↓ Export Excel</button>
+    <input id="importFile" type="file" accept=".json,application/json" hidden>
+  </div>
+</header>
+<nav class="tabs">
+ <button class="tab active" data-page="dashboard">Dashboard</button>
+ <button class="tab" data-page="log">Trade Journal</button>
+ <button class="tab" data-page="add">＋ Add Trade</button>
+ <button class="tab" data-page="analysis">RR & Strategy Analysis</button>
+ <button class="tab" data-page="settings">Settings</button>
+</nav>
+
+<section id="page-dashboard" class="page active">
+ <div class="grid kpis">
+  <div class="card"><div class="kpi-label">Total trades</div><div class="kpi-value" id="kTrades">0</div><div class="kpi-sub" id="kPeriod">All saved trades</div></div>
+  <div class="card"><div class="kpi-label">Win rate</div><div class="kpi-value" id="kWin">0.0%</div><div class="kpi-sub">Excludes break-even</div></div>
+  <div class="card"><div class="kpi-label">Net result</div><div class="kpi-value" id="kNet">0.00R</div><div class="kpi-sub" id="kCash">0.00 account currency</div></div>
+  <div class="card"><div class="kpi-label">Expectancy</div><div class="kpi-value" id="kExp">0.00R</div><div class="kpi-sub">Average R per trade</div></div>
+  <div class="card"><div class="kpi-label">Profit factor</div><div class="kpi-value" id="kPF">—</div><div class="kpi-sub">Gross wins ÷ gross losses</div></div>
+  <div class="card"><div class="kpi-label">Max drawdown</div><div class="kpi-value" id="kDD">0.00%</div><div class="kpi-sub" id="kDDCash">Peak-to-trough equity</div></div>
+ </div>
+ <div class="grid two-col">
+  <div class="card"><h2>Equity curve</h2><div class="legend"><span><i class="dot" style="background:var(--green)"></i>Equity (R)</span><span><i class="dot" style="background:var(--red)"></i>Drawdown periods</span></div><canvas id="equityChart" class="chart"></canvas></div>
+  <div class="card"><h2>Recent trades</h2><div id="recentTrades"></div></div>
+ </div>
+ <div class="grid two-col" style="margin-top:14px">
+  <div class="card"><h2>Results by RR category</h2><div id="rrBars" class="bar-list"></div></div>
+  <div class="card"><h2>Outcome breakdown</h2><div id="outcomes"></div></div>
+ </div>
+</section>
+
+<section id="page-log" class="page">
+ <div class="card">
+  <div class="toolbar"><div><h2 style="margin-bottom:3px">Trade journal</h2><div class="muted small" id="journalCount">0 trades</div></div>
+   <div class="filters"><input id="searchTrades" placeholder="Search symbol / setup"><select id="filterRR"><option value="">All RR categories</option></select><select id="filterOutcome"><option value="">All outcomes</option><option>Win</option><option>Loss</option><option>Break-even</option></select><button id="clearFilters" class="ghost">Clear</button></div>
+  </div>
+  <div class="table-wrap"><table><thead><tr><th>Date</th><th>Symbol</th><th>Session</th><th>Setup</th><th>Side</th><th>RR category</th><th>Outcome</th><th>Actual R</th><th>P/L</th><th>Notes</th><th>Actions</th></tr></thead><tbody id="tradeRows"></tbody></table></div>
+ </div>
+</section>
+
+<section id="page-add" class="page">
+ <div class="card">
+  <h2 id="formTitle">Add a trade</h2>
+  <div class="notice">Enter the actual result in R for partial closes, slippage, or results that differ from a full TP/SL. If blank, the result is calculated from the selected outcome and RR.</div>
+  <form id="tradeForm">
+   <input type="hidden" id="tradeId">
+   <div class="form-section"><h3>Trade details</h3><div class="field-grid">
+    <div class="field"><label for="date">Date *</label><input id="date" type="date" required></div>
+    <div class="field"><label for="symbol">Symbol / market *</label><input id="symbol" placeholder="e.g. XAUUSD, EURUSD" required></div>
+    <div class="field"><label for="session">Session</label><select id="session"><option>London</option><option>New York</option><option>Asia</option><option>London / NY overlap</option><option>Other</option></select></div>
+    <div class="field"><label for="direction">Direction</label><select id="direction"><option>Long</option><option>Short</option></select></div>
+    <div class="field"><label for="strategy">Strategy / setup *</label><input id="strategy" placeholder="e.g. London breakout" required></div>
+    <div class="field"><label for="rr">RR category *</label><select id="rr" required><option value="1">1:1</option><option value="1.5">1:1.5</option><option value="2" selected>1:2</option><option value="2.5">1:2.5</option><option value="3">1:3</option><option value="4">1:4</option><option value="5">1:5</option><option value="custom">Custom RR</option></select></div>
+    <div class="field" id="customRRWrap" style="display:none"><label for="customRR">Custom reward multiple (R)</label><input id="customRR" type="number" min="0.01" step="0.01" placeholder="e.g. 2.75"></div>
+    <div class="field"><label for="outcome">Outcome *</label><select id="outcome" required><option>Win</option><option>Loss</option><option>Break-even</option></select></div>
+   </div></div>
+   <div class="form-section"><h3>Price, risk & result (optional but useful)</h3><div class="field-grid">
+    <div class="field"><label for="entry">Entry price</label><input id="entry" type="number" step="any" placeholder="Entry"></div>
+    <div class="field"><label for="stop">Stop loss</label><input id="stop" type="number" step="any" placeholder="SL price"></div>
+    <div class="field"><label for="target">Take profit</label><input id="target" type="number" step="any" placeholder="TP price"></div>
+    <div class="field"><label for="riskPct">Risk per trade (%)</label><input id="riskPct" type="number" min="0" max="100" step="0.01" placeholder="Use default"></div>
+    <div class="field"><label for="riskCash">Risk amount (cash)</label><input id="riskCash" type="number" min="0" step="any" placeholder="Overrides % if entered"></div>
+    <div class="field"><label for="actualR">Actual result (R)</label><input id="actualR" type="number" step="0.01" placeholder="e.g. 1.4 or -0.6"></div>
+    <div class="field"><label for="commission">Fees / commission (cash)</label><input id="commission" type="number" min="0" step="any" placeholder="0"></div>
+    <div class="field"><label for="tags">Tags</label><input id="tags" placeholder="A setup, news, rule-followed"></div>
+   </div></div>
+   <div class="field"><label for="notes">Notes / chart link</label><textarea id="notes" rows="3" placeholder="Why you took it, mistakes, conditions, screenshot URL…"></textarea></div>
+   <div class="form-actions"><button type="button" class="ghost" id="cancelEdit" style="display:none">Cancel edit</button><button type="reset" class="ghost" id="clearForm">Clear form</button><button class="primary" type="submit" id="saveTradeBtn">Save trade</button></div>
+  </form>
+ </div>
+</section>
+
+<section id="page-analysis" class="page">
+ <div class="grid two-col">
+  <div class="card"><h2>RR category comparison</h2><div class="table-wrap"><table style="min-width:700px"><thead><tr><th>RR category</th><th>Trades</th><th>Win rate</th><th>Net R</th><th>Avg R</th><th>Profit factor</th><th>Net P/L</th></tr></thead><tbody id="rrAnalysisRows"></tbody></table></div></div>
+  <div class="card"><h2>Strategy comparison</h2><div class="table-wrap"><table style="min-width:650px"><thead><tr><th>Strategy</th><th>Trades</th><th>Win rate</th><th>Net R</th><th>Expectancy</th><th>PF</th></tr></thead><tbody id="strategyRows"></tbody></table></div></div>
+ </div>
+ <div class="grid two-col" style="margin-top:14px">
+  <div class="card"><h2>Session performance</h2><div class="table-wrap"><table style="min-width:540px"><thead><tr><th>Session</th><th>Trades</th><th>Win rate</th><th>Net R</th><th>Expectancy</th></tr></thead><tbody id="sessionRows"></tbody></table></div></div>
+  <div class="card"><h2>Backtest quality checklist</h2><div id="qualityChecklist" class="bar-list"></div></div>
+ </div>
+</section>
+
+<section id="page-settings" class="page">
+ <div class="grid settings-grid">
+  <div class="card"><h2>Account settings</h2>
+   <div class="field" style="margin-bottom:12px"><label for="startingBalance">Starting balance</label><input id="startingBalance" type="number" step="any" min="0"></div>
+   <div class="field" style="margin-bottom:12px"><label for="defaultRisk">Default risk per trade (%)</label><input id="defaultRisk" type="number" min="0" max="100" step="0.01"></div>
+   <div class="field" style="margin-bottom:12px"><label for="currency">Account currency / label</label><input id="currency" placeholder="USD, INR, or account label"></div>
+   <button class="primary" id="saveSettings">Save settings</button>
+  </div>
+  <div class="card"><h2>Data & privacy</h2><p class="muted small">This standalone version saves data in this browser on this device using local storage. It is not cloud-synced. Use Backup data regularly or export Excel before clearing browser data.</p><button id="backupBtn2">Download JSON backup</button><div style="height:8px"></div><button id="importBtn2">Restore JSON backup</button><div style="height:8px"></div><button class="danger" id="deleteAll">Delete all trades</button></div>
+  <div class="card"><h2>Export options</h2><p class="muted small">Excel export includes a trade-by-trade log, summary metrics, RR breakdown, strategy breakdown, and session breakdown.</p><button class="primary" id="exportBtn2">Export performance to Excel</button><div style="height:12px"></div><p class="muted small">Tip: use the JSON backup to move your data to another browser or computer. Excel is a report, not a live sync file.</p></div>
+ </div>
+</section>
+<div class="foot">TradeLab Backtest · Local-first trade journal · Historical performance does not guarantee future results.</div>
+</div>
+<div id="toast" class="toast"></div>
+<div id="confirmModal" class="modal-backdrop"><div class="modal"><h2>Delete all trades?</h2><p class="muted">This will permanently remove all saved trades from this browser. Export or back up first if needed.</p><div class="form-actions"><button id="noDelete">Cancel</button><button class="danger" id="yesDelete">Delete all trades</button></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+const STORE_KEY='tradelab_backtest_v1';
+const defaults={settings:{startingBalance:5000,defaultRisk:1,currency:'USD'},trades:[]};
+let state=loadState();
+let editingId=null;
+const $=id=>document.getElementById(id);
+const fmt=(n,d=2)=>Number(n||0).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
+const signed=(n,d=2)=>(n>0?'+':'')+fmt(n,d);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function loadState(){try{const v=JSON.parse(localStorage.getItem(STORE_KEY));if(v&&Array.isArray(v.trades))return {...defaults,...v,settings:{...defaults.settings,...v.settings}}}catch(e){}return structuredClone(defaults)}
+function persist(){try{localStorage.setItem(STORE_KEY,JSON.stringify(state));return true}catch(e){toast('Could not save: browser storage may be full. Export a backup.');return false}}
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>t.style.display='none',2800)}
+function rrValue(t){return t.rrCategory==='Custom'?Number(t.customRR||0):Number(t.rrCategory||0)}
+function resultR(t){if(t.actualR!==''&&t.actualR!==null&&t.actualR!==undefined&&Number.isFinite(Number(t.actualR)))return Number(t.actualR);if(t.outcome==='Win')return rrValue(t);if(t.outcome==='Loss')return -1;return 0}
+function riskAmount(t){if(Number(t.riskCash)>0)return Number(t.riskCash);const bal=Number(t.balanceBefore||state.settings.startingBalance||0);return bal*(Number(t.riskPct??state.settings.defaultRisk)||0)/100}
+function netPL(t){return resultR(t)*riskAmount(t)-Number(t.commission||0)}
+function categoryLabel(t){return t.rrCategory==='Custom'?'Custom ('+fmt(rrValue(t))+':1)':`1:${fmt(rrValue(t),rrValue(t)%1?2:0)}`}
+function sortedTrades(){return [...state.trades].sort((a,b)=>(a.date||'').localeCompare(b.date||'')||(a.createdAt||0)-(b.createdAt||0))}
+function metrics(trades){
+ const n=trades.length,w=trades.filter(t=>t.outcome==='Win').length,l=trades.filter(t=>t.outcome==='Loss').length,be=trades.filter(t=>t.outcome==='Break-even').length;
+ const rs=trades.map(resultR),netR=rs.reduce((a,b)=>a+b,0),grossWin=rs.filter(x=>x>0).reduce((a,b)=>a+b,0),grossLoss=Math.abs(rs.filter(x=>x<0).reduce((a,b)=>a+b,0));
+ const cash=trades.reduce((s,t)=>s+netPL(t),0);
+ return {n,w,l,be,winRate:(w+l)?w/(w+l)*100:0,netR,avgR:n?netR/n:0,expectancy:n?netR/n:0,pf:grossLoss?grossWin/grossLoss:(grossWin?Infinity:0),cash,grossWin,grossLoss}
+}
+function equityData(){let bal=Number(state.settings.startingBalance)||0,peak=bal,maxDD=0,curve=[{label:'Start',balance:bal,dd:0}];for(const t of sortedTrades()){bal+=netPL(t);peak=Math.max(peak,bal);const dd=peak>0?(peak-bal)/peak*100:0;maxDD=Math.max(maxDD,dd);curve.push({label:t.date,balance:bal,dd})}return {curve,maxDD,balance:bal}}
+function allRRGroups(){const map=new Map();state.trades.forEach(t=>{const key=categoryLabel(t);if(!map.has(key))map.set(key,[]);map.get(key).push(t)});return [...map.entries()].sort((a,b)=>rrValue(a[1][0])-rrValue(b[1][0]))}
+function groupBy(trades,keyFn){const m=new Map();trades.forEach(t=>{const k=keyFn(t)||'Unspecified';if(!m.has(k))m.set(k,[]);m.get(k).push(t)});return [...m.entries()].sort((a,b)=>b[1].length-a[1].length)}
+function showPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.page===name));if(name==='add'&&!editingId) $('date').value ||= new Date().toISOString().slice(0,10);window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function renderDashboard(){
+ const m=metrics(state.trades),eq=equityData();
+ $('kTrades').textContent=m.n;$('kPeriod').textContent=m.n?`${state.trades.length} saved trades`:'All saved trades';
+ $('kWin').textContent=fmt(m.winRate,1)+'%';$('kNet').textContent=signed(m.netR)+'R';$('kNet').className='kpi-value '+(m.netR>0?'positive':m.netR<0?'negative':'');
+ $('kCash').textContent=signed(m.cash)+' '+(state.settings.currency||'');$('kExp').textContent=signed(m.expectancy)+'R';$('kExp').className='kpi-value '+(m.expectancy>0?'positive':m.expectancy<0?'negative':'');
+ $('kPF').textContent=m.pf===Infinity?'∞':(m.pf?fmt(m.pf):'—');$('kDD').textContent=fmt(eq.maxDD)+'%';$('kDDCash').textContent='Ending balance: '+fmt(eq.balance)+' '+(state.settings.currency||'');
+ drawEquity(eq.curve);
+ const recent=sortedTrades().slice(-6).reverse();
+ $('recentTrades').innerHTML=recent.length?`<div class="table-wrap"><table style="min-width:500px"><thead><tr><th>Date</th><th>Symbol</th><th>RR</th><th>Outcome</th><th>Result</th></tr></thead><tbody>${recent.map(t=>`<tr><td>${esc(t.date)}</td><td>${esc(t.symbol)}</td><td>${esc(categoryLabel(t))}</td><td>${pill(t.outcome)}</td><td class="${resultR(t)>0?'positive':resultR(t)<0?'negative':''}">${signed(resultR(t))}R</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty"><strong>No trades yet</strong>Add your first backtest trade to see performance here.<br><br><button class="primary" onclick="showPage(\\'add\\')">＋ Add first trade</button></div>';
+ const groups=allRRGroups();const max=Math.max(1,...groups.map(g=>Math.abs(metrics(g[1]).netR)));
+ $('rrBars').innerHTML=groups.length?groups.map(([name,ts])=>{const mm=metrics(ts),width=Math.abs(mm.netR)/max*100;return `<div class="bar-row"><strong>${esc(name)}</strong><div class="bar-track"><div class="bar-fill ${mm.netR<0?'neg':''}" style="width:${Math.max(2,width)}%"></div></div><span class="${mm.netR>0?'positive':mm.netR<0?'negative':''}">${signed(mm.netR)}R</span></div>`}).join(''):'<div class="empty">RR results will appear once trades are logged.</div>';
+ $('outcomes').innerHTML=`<div class="grid" style="grid-template-columns:repeat(3,1fr);gap:8px"><div class="card"><div class="kpi-label">Wins</div><div class="kpi-value positive">${m.w}</div></div><div class="card"><div class="kpi-label">Losses</div><div class="kpi-value negative">${m.l}</div></div><div class="card"><div class="kpi-label">Break-even</div><div class="kpi-value amber">${m.be}</div></div></div><p class="muted small" style="margin-top:14px">Win rate excludes break-even trades. Use actual R for partial exits and non-standard outcomes.</p>`;
+}
+function drawEquity(points){
+ const c=$('equityChart'),ctx=c.getContext('2d'),ratio=window.devicePixelRatio||1,w=c.clientWidth||600,h=c.clientHeight||250;c.width=w*ratio;c.height=h*ratio;ctx.scale(ratio,ratio);ctx.clearRect(0,0,w,h);
+ const pad={l:42,r:12,t:15,b:24},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
+ if(points.length<2){ctx.fillStyle='#8fa1bd';ctx.font='13px system-ui';ctx.fillText('Your equity curve will appear here after trades are saved.',12,35);return}
+ const vals=points.map(p=>p.balance),min=Math.min(...vals),max=Math.max(...vals),span=max-min||1;
+ ctx.strokeStyle='#293850';ctx.lineWidth=1;for(let i=0;i<4;i++){const y=pad.t+ph*i/3;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke()}
+ ctx.fillStyle='#8fa1bd';ctx.font='10px system-ui';ctx.fillText(fmt(max),2,pad.t+5);ctx.fillText(fmt(min),2,pad.t+ph);
+ ctx.beginPath();points.forEach((p,i)=>{const x=pad.l+i/(points.length-1)*pw,y=pad.t+(max-p.balance)/span*ph;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.lineWidth=2.5;ctx.strokeStyle='#31d0a0';ctx.stroke();
+ const last=points[points.length-1],lx=pad.l+pw,ly=pad.t+(max-last.balance)/span*ph;ctx.fillStyle='#31d0a0';ctx.beginPath();ctx.arc(lx,ly,4,0,Math.PI*2);ctx.fill();
+}
+function pill(outcome){const cls=outcome==='Win'?'win':outcome==='Loss'?'loss':'be';return `<span class="pill ${cls}">${esc(outcome)}</span>`}
+function renderJournal(){
+ const search=$('searchTrades').value.toLowerCase(),rr=$('filterRR').value,out=$('filterOutcome').value;
+ const trades=sortedTrades().filter(t=>(!search||[t.symbol,t.strategy,t.notes,t.tags].join(' ').toLowerCase().includes(search))&&(!rr||categoryLabel(t)===rr)&&(!out||t.outcome===out));
+ $('journalCount').textContent=`Showing ${trades.length} of ${state.trades.length} trades`;
+ $('tradeRows').innerHTML=trades.length?trades.slice().reverse().map(t=>`<tr><td>${esc(t.date)}</td><td><strong>${esc(t.symbol)}</strong></td><td>${esc(t.session)}</td><td>${esc(t.strategy)}</td><td>${esc(t.direction)}</td><td>${esc(categoryLabel(t))}</td><td>${pill(t.outcome)}</td><td class="${resultR(t)>0?'positive':resultR(t)<0?'negative':''}">${signed(resultR(t))}R</td><td class="${netPL(t)>0?'positive':netPL(t)<0?'negative':''}">${signed(netPL(t))}</td><td title="${esc(t.notes)}">${esc((t.notes||t.tags||'').slice(0,36))}</td><td><button class="ghost" onclick="editTrade('${t.id}')">Edit</button> <button class="ghost danger" onclick="deleteTrade('${t.id}')">Delete</button></td></tr>`).join(''):`<tr><td colspan="11"><div class="empty"><strong>${state.trades.length?'No matching trades':'No trades logged yet'}</strong>Use Add Trade to begin your backtest.</div></td></tr>`;
+}
+function fillRRFilters(){const current=$('filterRR').value;const labels=[...new Set(state.trades.map(categoryLabel))].sort();$('filterRR').innerHTML='<option value="">All RR categories</option>'+labels.map(x=>`<option>${esc(x)}</option>`).join('');$('filterRR').value=labels.includes(current)?current:''}
+function renderAnalysis(){
+ const groups=allRRGroups();$('rrAnalysisRows').innerHTML=groups.length?groups.map(([name,ts])=>{const m=metrics(ts);return `<tr><td><strong>${esc(name)}</strong></td><td>${m.n}</td><td>${fmt(m.winRate,1)}%</td><td class="${m.netR>=0?'positive':'negative'}">${signed(m.netR)}R</td><td>${signed(m.avgR)}R</td><td>${m.pf===Infinity?'∞':fmt(m.pf)}</td><td class="${m.cash>=0?'positive':'negative'}">${signed(m.cash)}</td></tr>`}).join(''):'<tr><td colspan="7" class="muted">No data yet.</td></tr>';
+ const strategies=groupBy(state.trades,t=>t.strategy);$('strategyRows').innerHTML=strategies.length?strategies.map(([name,ts])=>{const m=metrics(ts);return `<tr><td>${esc(name)}</td><td>${m.n}</td><td>${fmt(m.winRate,1)}%</td><td class="${m.netR>=0?'positive':'negative'}">${signed(m.netR)}R</td><td>${signed(m.expectancy)}R</td><td>${m.pf===Infinity?'∞':fmt(m.pf)}</td></tr>`}).join(''):'<tr><td colspan="6" class="muted">No data yet.</td></tr>';
+ const sessions=groupBy(state.trades,t=>t.session);$('sessionRows').innerHTML=sessions.length?sessions.map(([name,ts])=>{const m=metrics(ts);return `<tr><td>${esc(name)}</td><td>${m.n}</td><td>${fmt(m.winRate,1)}%</td><td class="${m.netR>=0?'positive':'negative'}">${signed(m.netR)}R</td><td>${signed(m.expectancy)}R</td></tr>`}).join(''):'<tr><td colspan="5" class="muted">No data yet.</td></tr>';
+ const checks=[['Sample size',state.trades.length>=100?'100+ trades logged':`${state.trades.length}/100 trades`,state.trades.length>=100],['Multiple sessions',new Set(state.trades.map(t=>t.session)).size>=2?'2+ sessions represented':'Log more sessions',new Set(state.trades.map(t=>t.session)).size>=2],['Setup consistency',new Set(state.trades.map(t=>t.strategy)).size>0?'Setup names are recorded':'Add setup names',new Set(state.trades.map(t=>t.strategy)).size>0],['Costs recorded',state.trades.some(t=>Number(t.commission)>0)?'Some fees included':'Check fees / spread assumptions',state.trades.some(t=>Number(t.commission)>0)],['Actual outcomes',state.trades.some(t=>t.actualR!==''&&t.actualR!=null)?'Actual R overrides included':'Use actual R for partial exits',state.trades.some(t=>t.actualR!==''&&t.actualR!=null)]];
+ $('qualityChecklist').innerHTML=checks.map(([a,b,ok])=>`<div class="inline" style="justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line)"><span>${esc(a)}</span><span class="${ok?'positive':'amber'}">${ok?'✓':'•'} ${esc(b)}</span></div>`).join('')+'<p class="muted small">These are practical reminders, not proof that a strategy is statistically robust.</p>';
+}
+function renderSettings(){$('startingBalance').value=state.settings.startingBalance;$('defaultRisk').value=state.settings.defaultRisk;$('currency').value=state.settings.currency}
+function renderAll(){persist();fillRRFilters();renderDashboard();renderJournal();renderAnalysis();renderSettings()}
+function resetForm(){editingId=null;$('tradeForm').reset();$('tradeId').value='';$('date').value=new Date().toISOString().slice(0,10);$('rr').value='2';$('customRRWrap').style.display='none';$('formTitle').textContent='Add a trade';$('saveTradeBtn').textContent='Save trade';$('cancelEdit').style.display='none'}
+$('rr').addEventListener('change',()=>$('customRRWrap').style.display=$('rr').value==='custom'?'flex':'none');
+$('tradeForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const category=$('rr').value==='custom'?'Custom':String(Number($('rr').value));
+ if(category==='Custom'&&!(Number($('customRR').value)>0)){toast('Enter a valid custom RR multiple.');return}
+ const old=editingId?state.trades.find(t=>t.id===editingId):null;
+ const t={id:editingId||crypto.randomUUID(),createdAt:old?.createdAt||Date.now(),date:$('date').value,symbol:$('symbol').value.trim().toUpperCase(),session:$('session').value,direction:$('direction').value,strategy:$('strategy').value.trim(),rrCategory:category,customRR:category==='Custom'?Number($('customRR').value):'',outcome:$('outcome').value,entry:$('entry').value,stop:$('stop').value,target:$('target').value,riskPct:$('riskPct').value===''?Number(state.settings.defaultRisk):Number($('riskPct').value),riskCash:$('riskCash').value===''?'':Number($('riskCash').value),actualR:$('actualR').value===''?'':Number($('actualR').value),commission:$('commission').value===''?0:Number($('commission').value),tags:$('tags').value.trim(),notes:$('notes').value.trim()};
+ if(old){state.trades=state.trades.map(x=>x.id===editingId?t:x);toast('Trade updated')}else{state.trades.push(t);toast('Trade saved')}
+ resetForm();renderAll();showPage('log');
+});
+$('tradeForm').addEventListener('reset',()=>setTimeout(()=>{if(!editingId){$('date').value=new Date().toISOString().slice(0,10);$('customRRWrap').style.display='none'}},0));
+$('cancelEdit').addEventListener('click',()=>{resetForm();showPage('log')});
+window.editTrade=id=>{const t=state.trades.find(x=>x.id===id);if(!t)return;editingId=id;showPage('add');$('formTitle').textContent='Edit trade';$('saveTradeBtn').textContent='Update trade';$('cancelEdit').style.display='inline-block';$('tradeId').value=id;
+ for(const k of ['date','symbol','session','direction','outcome','entry','stop','target','riskPct','riskCash','actualR','commission','tags','notes'])$(k).value=t[k]??'';
+ $('strategy').value=t.strategy;$('rr').value=t.rrCategory==='Custom'?'custom':String(Number(t.rrCategory));$('customRR').value=t.customRR||'';$('customRRWrap').style.display=t.rrCategory==='Custom'?'flex':'none';};
+window.deleteTrade=id=>{if(!confirm('Delete this trade?'))return;state.trades=state.trades.filter(t=>t.id!==id);renderAll();toast('Trade deleted')};
+$('searchTrades').addEventListener('input',renderJournal);$('filterRR').addEventListener('change',renderJournal);$('filterOutcome').addEventListener('change',renderJournal);
+$('clearFilters').addEventListener('click',()=>{$('searchTrades').value='';$('filterRR').value='';$('filterOutcome').value='';renderJournal()});
+$('saveSettings').addEventListener('click',()=>{state.settings.startingBalance=Math.max(0,Number($('startingBalance').value)||0);state.settings.defaultRisk=Math.min(100,Math.max(0,Number($('defaultRisk').value)||0));state.settings.currency=$('currency').value.trim()||'Account';persist();renderAll();toast('Settings saved')});
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function backup(){downloadBlob(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),'tradelab-backup-'+new Date().toISOString().slice(0,10)+'.json');toast('Backup downloaded')}
+function importBackup(file){const reader=new FileReader();reader.onload=()=>{try{const v=JSON.parse(reader.result);if(!v||!Array.isArray(v.trades)||!v.settings)throw Error();if(!confirm('Import backup and replace the current data? Download a backup first if needed.'))return;state={...defaults,...v,settings:{...defaults.settings,...v.settings}};persist();renderAll();toast('Backup restored')}catch(e){toast('Invalid backup file')} $('importFile').value=''};reader.readAsText(file)}
+$('backupBtn').onclick=$('backupBtn2').onclick=backup;$('importBtn').onclick=$('importBtn2').onclick=()=>$('importFile').click();$('importFile').addEventListener('change',e=>{if(e.target.files[0])importBackup(e.target.files[0])});
+$('deleteAll').addEventListener('click',()=>$('confirmModal').style.display='grid');$('noDelete').onclick=()=>$('confirmModal').style.display='none';$('yesDelete').onclick=()=>{state.trades=[];persist();renderAll();$('confirmModal').style.display='none';toast('All trades deleted')};
+function buildExport(){
+ if(!window.XLSX){toast('Excel library could not load. Check your internet connection and retry.');return}
+ const trades=sortedTrades();
+ const log=trades.map((t,i)=>({TradeNo:i+1,Date:t.date,Symbol:t.symbol,Session:t.session,Strategy:t.strategy,Direction:t.direction,RRCategory:categoryLabel(t),PlannedRR:rrValue(t),Outcome:t.outcome,Entry:t.entry,StopLoss:t.stop,TakeProfit:t.target,RiskPercent:t.riskPct,RiskCash:riskAmount(t),ActualR:resultR(t),Commission:Number(t.commission||0),NetPL:netPL(t),Tags:t.tags,Notes:t.notes}));
+ const m=metrics(trades),eq=equityData();
+ const summary=[{Metric:'Starting balance',Value:state.settings.startingBalance},{Metric:'Default risk %',Value:state.settings.defaultRisk},{Metric:'Currency',Value:state.settings.currency},{Metric:'Total trades',Value:m.n},{Metric:'Wins',Value:m.w},{Metric:'Losses',Value:m.l},{Metric:'Break-even',Value:m.be},{Metric:'Win rate excluding BE (%)',Value:m.winRate},{Metric:'Net result (R)',Value:m.netR},{Metric:'Expectancy (R/trade)',Value:m.expectancy},{Metric:'Profit factor',Value:m.pf===Infinity?'Infinite':m.pf},{Metric:'Net P/L',Value:m.cash},{Metric:'Ending balance',Value:eq.balance},{Metric:'Maximum drawdown (%)',Value:eq.maxDD}];
+ const rr=allRRGroups().map(([name,ts])=>{const x=metrics(ts);return {RRCategory:name,Trades:x.n,Wins:x.w,Losses:x.l,BreakEven:x.be,WinRatePercent:x.winRate,NetR:x.netR,AverageR:x.avgR,ProfitFactor:x.pf===Infinity?'Infinite':x.pf,NetPL:x.cash}});
+ const strategy=groupBy(trades,t=>t.strategy).map(([name,ts])=>{const x=metrics(ts);return {Strategy:name,Trades:x.n,WinRatePercent:x.winRate,NetR:x.netR,ExpectancyR:x.expectancy,ProfitFactor:x.pf===Infinity?'Infinite':x.pf,NetPL:x.cash}});
+ const session=groupBy(trades,t=>t.session).map(([name,ts])=>{const x=metrics(ts);return {Session:name,Trades:x.n,WinRatePercent:x.winRate,NetR:x.netR,ExpectancyR:x.expectancy,NetPL:x.cash}});
+ const equity=eq.curve.map((p,i)=>({Point:i,DateOrStart:p.label,Equity:p.balance,DrawdownPercent:p.dd}));
+ const wb=XLSX.utils.book_new();
+ function sheet(name,rows){const ws=XLSX.utils.json_to_sheet(rows.length?rows:[{Info:'No data yet'}]);XLSX.utils.book_append_sheet(wb,ws,name);ws['!cols']=Object.keys(rows[0]||{Info:''}).map(k=>({wch:Math.min(34,Math.max(12,k.length+3))}));}
+ sheet('Trade Log',log);sheet('Summary',summary);sheet('RR Analysis',rr);sheet('Strategy Analysis',strategy);sheet('Session Analysis',session);sheet('Equity Curve',equity);
+ XLSX.writeFile(wb,'TradeLab_Backtest_Report_'+new Date().toISOString().slice(0,10)+'.xlsx');toast('Excel report exported');
+}
+$('exportBtn').onclick=$('exportBtn2').onclick=buildExport;
+window.addEventListener('resize',()=>drawEquity(equityData().curve));
+renderAll();resetForm();
+</script>
+</body>
+</html>
